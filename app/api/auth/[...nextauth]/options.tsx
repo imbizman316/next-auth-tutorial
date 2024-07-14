@@ -1,10 +1,14 @@
 import GoogleProvider from "next-auth/providers/google";
 
+if (!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {
+  throw new Error("Missing environment variables for Google authentication");
+}
+
 export const options = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_SECRET as string,
       profile(profile) {
         console.log("Profile Google", profile);
 
